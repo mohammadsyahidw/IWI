@@ -5,7 +5,7 @@ var pool = mysql.createPool({
   connectionLimit: 3,
   host: 'localhost',
   user: 'root',
-  database: 'webappdatabase',
+  database: 'dbs',
   password: '1234'
 });
 
@@ -28,7 +28,7 @@ router.all('/api', function (req, res, next) {
 
 router.post('/login', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
-    var sqlForSelectList = "SELECT count(*) as result FROM userlist where id ='"+req.body.name+"' and password ='"+req.body.password+"'";
+    var sqlForSelectList = "SELECT count(*) as result FROM userlist where username ='"+req.body.name+"' and password ='"+req.body.password+"'";
     connection.query(sqlForSelectList, function (err, rows) {
       if (err) console.error("err : "+err);
       console.log("rows : "+JSON.stringify(rows));
