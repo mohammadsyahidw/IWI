@@ -16,7 +16,7 @@ router.all('/', function(req, res, next) {
 
 router.all('/api', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
-    var sqlForSelectList = 'SELECT * FROM userlist';
+    var sqlForSelectList = 'SELECT * FROM eventlist';
     connection.query(sqlForSelectList, function (err, rows) {
       if (err) console.error("err : "+err);
       console.log("rows : "+JSON.stringify(rows));
@@ -29,6 +29,19 @@ router.all('/api', function (req, res, next) {
 router.post('/login', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
     var sqlForSelectList = "SELECT count(*) as result FROM userlist where username ='"+req.body.name+"' and password ='"+req.body.password+"'";
+    connection.query(sqlForSelectList, function (err, rows) {
+      if (err) console.error("err : "+err);
+      console.log("rows : "+JSON.stringify(rows));
+      res.json(rows);
+      connection.release();
+    });
+  });
+});
+
+router.post('/submit', function (req, res, next) {
+  pool.getConnection(function (err, connection  ) {
+    var sqlForSelectList = "INSERT INTO eventlist (creatorid, destination, description, date) VALUES ('"+req.body.creatorid+"', '"+req.body.destination+"', '"+req.body.description+"', '"+req.body.date+"')";
+   // var sqlForSelectList = "INSERT INTO eventlist (destination, description, date) VALUES ('Dongdaemun', 'Belanja Ceria', '2016-09-01');";
     connection.query(sqlForSelectList, function (err, rows) {
       if (err) console.error("err : "+err);
       console.log("rows : "+JSON.stringify(rows));

@@ -39,5 +39,27 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
             .error(function (data, status, headers, config) {
                 console.log(status);
             });
+    };
+
+    $scope.submit = function () {
+        $http({
+            method : 'POST',
+            url: 'http://localhost:3000/submit',
+            data: {
+                destination : $scope.destination,
+                description : $scope.description,
+                date : $scope.date
+            }
+        })
+            .success(function (data, status, headers, config) {
+                if (data){
+                    alert("Event added!");
+                } else {
+                    alert("Adding event failed!")
+                }
+            })
+            .error(function (data, status, headers, config) {
+                console.log(status);
+            });
     }
 }]);
