@@ -7,8 +7,10 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.js"></script>
+    <script src="client1.js"></script>
 </head>
-<body>
+<body ng-app="myApp" ng-controller="MainCtrl">
 <div class="container">
 
     <!--hide before login, -->
@@ -67,20 +69,17 @@
     <tr>
     <tr>
         <th>Owner</th>
-        <th>Trip Name</th>
-        <th>Date</th>
         <th>Destination</th>
+        <th>Date</th>
         <th>Members</th>
     </tr>
     </thead>
     <tbody>
-    <tr>
-        <td>test owner</td>
-        <td>test event</td>
-        <td>test date</td>
-        <td>test destination</td>
-        <td>test member</td>
-
+    <tr ng-repeat="member in members">
+        <td>{{member.username}}</td>
+        <td>{{member.destination}}</td>
+        <td>{{member.dateValue}}</td>
+        <td>{{member.totalFollower}}</td>
     </tr>
     </tbody>
         </table>
