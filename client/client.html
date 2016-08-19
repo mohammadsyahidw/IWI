@@ -8,6 +8,9 @@
 </head>
 <body>
 <div ng-app="myApp" ng-controller="MainCtrl">
+    Name : <input type="text" ng-model="namelogin"/>
+    Password : <input type="password" ng-model="passlogin"/>
+    <button ng-click="login()">Login</button>
     <ul>
         <li ng-repeat="member in members">
             Number : {{member.id}}<br/>
