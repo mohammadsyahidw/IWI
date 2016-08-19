@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <style>
-        .half{
-            width:50%;
-        }
-    </style>
+
     <meta charset="UTF-8">
     <title>Tripster</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -16,12 +12,14 @@
 </head>
 <body ng-app="myApp" ng-controller="MainCtrl">
 <div class="container">
-    <form>
+    <button class="btn btn-default pull-left"> <a href="addEvent.html">+</a> </button>
+    <form class="form-inline right pull-right">
         <div class="form-group">
-            <label for="usr">Name: </label>
-            <input type="text" class="form-control half" id="usr">
+            <label for="usr">ID: </label>
+            <input type="text" class="form-control" id="usr">
             <label for="pwd">Password:</label>
-            <input type="password" class="form-control half" id="pwd">
+            <input type="password" class="form-control" id="pwd">
+            <button type="submit" class="btn btn-default">submit</button>
         </div>
     </form>
 </div>
@@ -36,7 +34,7 @@
     <tr>
     <tr>
         <th>Owner</th>
-        <th>Event Name</th>
+        <th>Trip Name</th>
         <th>Date</th>
         <th>Destination</th>
         <th>Members</th>
