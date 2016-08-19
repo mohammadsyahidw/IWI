@@ -34,16 +34,16 @@
     <tr>
     <tr>
         <th>Owner</th>
-        <th>Trip Name</th>
-        <th>Date</th>
         <th>Destination</th>
+        <th>Date</th>
         <th>Members</th>
     </tr>
     </thead>
     <tbody>
     <tr ng-repeat="member in members">
         <td>{{member.username}}</td>
-        <td>{{member.title}}</td>
+        <td>{{member.destination}}</td>
+        <td>{{member.dateValue}}</td>
         <td>{{member.totalFollower}}</td>
     </tr>
     </tbody>
