@@ -20,11 +20,7 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
                 })
                     .success(function (data, status, headers, config) {
                         if (data) {
-                            //  if ($scope.npassword1 == $scope.npassword2) {
                             alert("Sign Up Success!");
-                            //   } else {
-                            //    alert("Confirm");
-                            // }
                         } else {
                             alert("Sign Up Failed!")
                         }
