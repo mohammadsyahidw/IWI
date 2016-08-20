@@ -20,10 +20,10 @@
 <label for="evt">ID: </label>
 <input type="text" class="form-control" id="id" ng-model="creatorid"/>
 <label for="evt">Event: </label>
-<input type="text" class="form-control" id="evt" ng-model="destination"/>
+<input required type="text" class="form-control" id="evt" ng-model="destination"/>
 <label for="desc">Description:</label>
 <textarea rows="5" class="form-control" id="desc" ng-model="description"></textarea>
-<label for="date">Date:</label>
+<label required for="date">Date:</label>
 <input type="date" class="form-control" id="date" ng-model="date"/>
 <label for="pic">Views:</label>
 <input type="file" class="" accept="image/*" multiple="multiple" id="pic"/>
