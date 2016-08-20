@@ -7,9 +7,10 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="myTrips.js"></script>
 
 </head>
-<body>
+<body ng-app="myApp" ng-controller="MainCtrl">
 <div class="pull-left">
     <label >Welcome, {{Username}} !  </label>
     <button class="btn btn-default ">  <a href="addEvent.html"> Add Trip</a> </button>
@@ -33,11 +34,12 @@
         </tr>
         </thead>
         <tbody>
+        <input type="text" ng-model="eventid"/><button ng-click="search()">Search</button>
         <tr ng-repeat="member in members">
-            <td>{{member.username}}</td>
+            <td>{{member.creatorid}}</td>  <!--dapet dari session-->
             <td>{{member.destination}}</td>
-            <td>{{member.dateValue}}</td>
-            <td>{{member.totalFollower}}</td>
+            <td>{{member.date}}</td>
+            <td>{{member.follower}}</td>
         </tr>
         </tbody>
     </table>
