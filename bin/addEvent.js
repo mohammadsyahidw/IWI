@@ -1,37 +1,16 @@
 /**
  * Created by Iffah Nisrina on 8/17/2016.
  */
-/*
-module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
-    $scope.user = {};
-    $scope.user.username='';
-    $http({
-        method : 'POST',
-        url: 'http://localhost:3000'
-    })
-        .success(function (data, status, headers, config) {
-
-            if (data){
-                $scope.members=data;
-                alert(data);
-            } else {
-            }
-        })
-        .error(function (data, status, headers, config) {
-            console.log(status);
-        });
-}]);
-*/
 var module = angular.module('myApp', []);
 module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
+    //askasjkasn
     $scope.user = {};
     $scope.user.username='';
     $http({
         method : 'POST',
-        url: 'http://localhost:3000'
+        url: 'http://localhost:3000/api'
     })
         .success(function (data, status, headers, config) {
-
             if (data){
                 $scope.members=data;
             } else {
@@ -61,17 +40,28 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
             .error(function (data, status, headers, config) {
                 console.log(status);
             });
+    };
+
+    $scope.submit = function () {
+        $http({
+            method : 'POST',
+            url: 'http://localhost:3000/submit',
+            data: {
+                creatorid : $scope.creatorid,
+                destination : $scope.destination,
+                description : $scope.description,
+                date : $scope.date
+            }
+        })
+            .success(function (data, status, headers, config) {
+                if (data){
+                    alert("Event added!");
+                } else {
+                    alert("Adding event failed!")
+                }
+            })
+            .error(function (data, status, headers, config) {
+                console.log(status);
+            });
     }
 }]);
-//
-// module.directive('hideTop', function () {
-//     return {
-//         link : function (scope, element) {
-//             scope.$watch("islogin", function () {
-//                 if (scope.islogin) {
-//                     element.addClass('hide');
-//                 }
-//             });
-//         }
-//     };
-// });
