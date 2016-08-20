@@ -17,12 +17,13 @@ router.all('/', function(req, res, next) {
 */
 router.all('/', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
-
+   // var sqlForSelectList = "select * from eventlist";
     var sqlForSelectList = "select username, destination, Count(follower) as totalFollower, DATE_FORMAT(date, '%d-%m-%Y') as dateValue from eventlist, followerlist, userlist where eventlist.eventid=followerlist.eventid AND follower = id GROUP BY followerlist.eventid";
     connection.query(sqlForSelectList, function (err, rows) {
       if (err) console.error("err : "+err);
       console.log("rows : "+JSON.stringify(rows));
       res.json(rows);
+      console.log(rows);
       connection.release();
     });
   });
