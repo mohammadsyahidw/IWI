@@ -23,6 +23,7 @@ router.all('/', function (req, res, next) {
       if (err) console.error("err : "+err);
       console.log("rows : "+JSON.stringify(rows));
       res.json(rows);
+      console.log(rows);
       connection.release();
     });
   });
