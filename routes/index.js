@@ -27,7 +27,7 @@ router.all('/api', function (req, res, next) {
     });
   });
 });
-
+/*
 router.post('/login', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
     var sqlForSelectList = "SELECT count(*) as result FROM userlist where username ='"+req.body.name+"' and password ='"+req.body.password+"'";
@@ -39,7 +39,7 @@ router.post('/login', function (req, res, next) {
     });
   });
 });
-
+*/
 router.post('/submit', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
     var sqlForSelectList = "INSERT INTO eventlist (creatorid, destination, description, date) VALUES ('"+req.body.creatorid+"', '"+req.body.destination+"', '"+req.body.description+"', '"+req.body.date+"')";
@@ -52,5 +52,33 @@ router.post('/submit', function (req, res, next) {
     });
   });
 });
+
+router.get('/login', function(req, res, next){
+  //req.session.logined = false;
+  if(req.session.logined)
+    res.render('logout', {session: req.session})
+  else {
+    res.render('login', {session: req.session})
+  }
+
+})
+router.post('/login', function(req, res, next){
+  if(req.body.id == 'wise'  &&  req.body.pw =='lab'){
+    req.session.regenerate(function(){
+      req.session.logined = true;
+      req.session.user_id = req.body.id;
+      res.render('logout', {session: req.session})
+    })
+  }
+  else{
+    console.log("wrong password");
+  }
+
+});
+
+router.post('/logout', function(req,res,next){
+  req.session.destroy();
+  res.redirect('/login')
+})
 
 module.exports = router;
