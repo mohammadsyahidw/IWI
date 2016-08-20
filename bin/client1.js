@@ -62,7 +62,7 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
             .error(function (data, status, headers, config) {
                 console.log(status);
             });
-    };
+    }
 }]);
 //
 // module.directive('hideTop', function () {

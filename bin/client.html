@@ -16,16 +16,18 @@
     <!--hide before login, -->
     <div class="pull-left">
     <label >Welcome, !  </label>
-    <button class="btn btn-default ">  <a href="addEvent.html"> add trip</a> </button>
+    <button class="btn btn-default ">  <a href="addEvent.html"> Add Trip</a> </button>
+    <button class="btn btn-default ">  <a href="myTrips.html"> My Trip</a> </button>
+
     </div>
 
     <!--Hide after login-->
     <form class="form-inline right pull-right">
         <div class="form-group">
-            <label for="usr">ID: </label>
-            <input type="text" class="form-control" ng-model="namelogin" id="usr">
+            <label for="usr">Username: </label>
+            <input required type="text" class="form-control" ng-model="namelogin" id="usr">
             <label for="pwd">Password:</label>
-            <input type="password" class="form-control" ng-model="passlogin" id="pwd">
+            <input required type="password" class="form-control" ng-model="passlogin" id="pwd">
             <button type="submit" class="btn btn-default" ng-click="login()">Submit</button>
         </div>
     </form>
