@@ -34,6 +34,7 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
 
             if (data){
                 $scope.members=data;
+               // console.log(data.message);
             } else {
             }
         })
@@ -51,11 +52,11 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
             }
         })
             .success(function (data, status, headers, config) {
-                if (data[0].result==1){
+                if (data == 'Success'){
                     $scope.islogin = true;
                     alert("Login Success!");
                 } else {
-                    alert("Login Failed!")
+                    alert(data);
                 }
             })
             .error(function (data, status, headers, config) {
