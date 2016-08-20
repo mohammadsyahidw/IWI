@@ -45,7 +45,7 @@ router.post('/login', function (req, res, next) {
       }
       else {
         res.json(rows);
-      };
+      }
       connection.release();
     });
   });
@@ -86,6 +86,19 @@ router.post('/submit', function (req, res, next) {
 //   }
 //
 // });
+
+router.post('/signup', function (req, res, next) {
+  pool.getConnection(function (err, connection  ) {
+    var sqlForSelectList = "INSERT INTO userlist (username, password) VALUES ('"+req.body.newname+"', '"+req.body.newpassword+"')";
+    // var sqlForSelectList = "INSERT INTO eventlist (destination, description, date) VALUES ('Dongdaemun', 'Belanja Ceria', '2016-09-01');";
+    connection.query(sqlForSelectList, function (err, rows) {
+      if (err) console.error("err : "+err);
+      console.log("rows : "+JSON.stringify(rows));
+      res.json(rows);
+      connection.release();
+    });
+  });
+});
 
 router.post('/logout', function(req,res,next){
   req.session.destroy();
