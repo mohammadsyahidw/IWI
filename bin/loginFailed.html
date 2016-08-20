@@ -19,10 +19,16 @@
 <div class="col-sm-4"></div>
 <form class="center container col-sm-4" background-color="black">
     <div class="form-group">
-        <label for="usr">ID: </label>
+        <label for="usr">
+        ID: </label>
+        <script>
+            $(document).ready(function(){
+                $('[data-toggle="popover"]').popover();
+            });
+        </script>
         <input type="text" class="form-control" id="usr">
         <label for="pwd">Password:</label>
-        <input type="password" class="form-control" id="pwd">
+        <input type="password" class="form-control" id="pwd" data-toggle="popover" data-content="wrong password entered">
         <button type="submit" class=" form-control btn btn-default">submit</button>
     </div>
 </form>

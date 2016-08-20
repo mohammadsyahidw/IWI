@@ -11,6 +11,12 @@
 
 </head>
 <body ng-app="myApp" ng-controller="MainCtrl">
+<div class="jumbotron text-left ">
+    <h1> Tripster</h1>
+    <p> our travel partner</p>
+</div>
+
+<div class="container">
 <label for="evt">ID </label>
 <input type="text" class="form-control" id="id" ng-model="creatorid"/>
 <label for="evt">Event: </label>
@@ -23,6 +29,6 @@
 <input type="file" class="" accept="image/*" multiple="multiple" id="pic"/>
 <br/>
 <button type="submit" ng-click="submit()" class="btn btn-default">submit</button>
-
+</div>
 </body>
 </html>
