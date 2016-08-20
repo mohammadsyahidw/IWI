@@ -7,10 +7,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="addEvent.js"></script>
+    <script src="signup.js"></script>
 
 </head>
-<body>
+<body ng-app="myApp" ng-controller="MainCtrl">
 <div class="jumbotron text-left ">
     <h1> Tripster</h1>
     <p> our travel partner</p>
@@ -18,15 +18,15 @@
 
 <div class="container">
     <label for="usr">Username : </label>
-    <input type="text" class="form-control" id="usr"/>
+    <input type="text" class="form-control" ng-model="nname" id="usr"/>
     <label for="email">Email: </label>
-    <input type="text" class="form-control" id="email"/>
+    <input type="text" class="form-control" ng-model="email" id="email"/>
     <label for="pass">Password:</label>
-    <input type="password"class="form-control" id="pass">
+    <input type="password" class="form-control" ng-model="npassword1" id="pass">
     <label for="cf">Confirm Password:</label>
-    <input type="password" class="form-control" id="cf" />
+    <input type="password" class="form-control" ng-model="npassword2" id="cf" />
 
-    <button type="submit" ng-click="submit()" class="btn btn-default pull-right">Sign Up</button>
+    <button type="submit" ng-click="signup()" class="btn btn-default pull-right">Sign Up</button>
 </div>
 </body>
 </html>

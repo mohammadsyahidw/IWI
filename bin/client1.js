@@ -61,26 +61,6 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
             .error(function (data, status, headers, config) {
                 console.log(status);
             });
-    };
-    $scope.signup = function () {
-        $http({
-            method : 'POST',
-            url: 'http://localhost:3000/signup',
-            data: {
-                newname : $scope.nname,
-                newpassword : $scope.npassword
-            }
-        })
-            .success(function (data, status, headers, config) {
-                if (data){
-                    alert("Sign Up Success!");
-                } else {
-                    alert("Sign Up Failed!")
-                }
-            })
-            .error(function (data, status, headers, config) {
-                console.log(status);
-            });
     }
 }]);
 //
