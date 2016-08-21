@@ -87,7 +87,7 @@
 <!--Hide this below before login, show after login-->
 <div class="container">
     <h3>list of trips</h3>
-    <table class="table table-striped">
+    <table class="table table-striped table-hover" id="tableShowTrip">
         <thead>
         <tr>
         <tr>
@@ -98,7 +98,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="member in members">
+        <tr ng-repeat="member in members" style="cursor:pointer" onclick="document.location = 'http://localhost:3000/detailTrip'">
             <td>{{member.username}}</td>
             <td>{{member.destination}}</td>
             <td>{{member.dateValue}}</td>

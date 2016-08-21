@@ -173,6 +173,10 @@ router.post('/search', function (req, res, next) {
   });
 });
 
+router.all('/detailTrip', function (req, res, next) {
+    res.render('showEvent', {session: req.session});
+});
+
 router.post('/logout', function(req,res,next){
   req.session.destroy();
   res.redirect('/login')
