@@ -195,7 +195,7 @@ router.all('/show', function (req, res, next) {
   });
 });
 
-router.post('/logout', function(req,res,next){
+router.all('/logout', function(req,res,next){
   req.session.destroy();
   res.redirect('/login')
 });

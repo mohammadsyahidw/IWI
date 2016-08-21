@@ -55,7 +55,7 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
                 if (data == 'Success'){
                     $scope.islogin = true;
                     alert("Login Success!");
-                    window.location = "http://localhost:3000/api/login";
+                    window.location = "http://localhost:3000/login";
                 } else {
                     alert(data);
                 }
