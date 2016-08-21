@@ -7,7 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="addEvent.js"></script>
+    <script src="javascripts/addEvent.js"></script>
 
 </head>
 <body ng-app="myApp" ng-controller="MainCtrl">
@@ -19,6 +19,7 @@
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownAccount">
+            <li > <a ng-click="login()"href="#">Home</a></li>
             <li > <a href="#">My Trip</a></li>
             <li > <a ng-click="addTrip()" href="#">Add Trip</a></li>
             <li ><a href="http://localhost:3000/logout">Logout</a></li>
