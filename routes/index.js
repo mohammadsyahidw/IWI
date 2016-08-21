@@ -68,7 +68,7 @@ router.post('/api/submit', function (req, res, next) {
   });
 });
 
-router.all('/api/login', function(req, res, next){
+router.all('/login', function(req, res, next){
   //req.session.logined = false;
   if(req.session.logined){
  //   res.render('logout', {session: req.session});
@@ -76,7 +76,7 @@ router.all('/api/login', function(req, res, next){
   }
   else {
  //   res.render('login', {session: req.session});
-   res.render('firstpage', {sOOession: req.session});
+   res.render('firstpage', {session: req.session});
   }
 
 });
