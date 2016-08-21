@@ -174,9 +174,24 @@ router.post('/search', function (req, res, next) {
   });
 });
 
-router.all('/logout', function(req,res,next){
+
+router.all('/show', function (req, res, next) {
+  pool.getConnection(function (err, connection  ) {
+    // var sqlForSelectList = "select * from eventlist";
+    var sqlForSelectList = "select * from followerlist inner join eventlist on followerlist.eventid=eventlist.eventid inner join userlist on followerlist.follower=userlist.id where eventlist.eventid='"+req.body.shevent+"'";
+    connection.query(sqlForSelectList, function (err, rows) {
+      if (err) console.error("err : "+err);
+      console.log("rows : "+JSON.stringify(rows));
+      res.json(rows);
+      console.log(rows);
+      connection.release();
+    });
+  });
+});
+
+router.post('/logout', function(req,res,next){
   req.session.destroy();
   res.redirect('/login')
-})
+});
 
 module.exports = router;
