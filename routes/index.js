@@ -155,6 +155,10 @@ router.all('/addTrip',function (req,res,next) {
   res.render('addEvent',{session: req.session});
 
 });
+router.all('/editTrip',function (req,res,next) {
+  res.render('editEvent',{session: req.session});
+
+});
 router.all('/myTrips',function (req,res,next) {
   res.render('myTrips',{session: req.session});
 
