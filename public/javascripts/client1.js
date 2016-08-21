@@ -28,7 +28,7 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.user.username='';
     $http({
         method : 'POST',
-        url: 'http://localhost:3000'
+        url: 'http://localhost:3000/api/getdata'
     })
         .success(function (data, status, headers, config) {
 
@@ -45,7 +45,7 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.login = function () {
         $http({
             method : 'POST',
-            url: 'http://localhost:3000/login1',
+            url: 'http://localhost:3000/api/checklogin',
             data: {
                 name : $scope.namelogin,
                 password : $scope.passlogin
@@ -55,7 +55,7 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
                 if (data == 'Success'){
                     $scope.islogin = true;
                     alert("Login Success!");
-                    window.location = "http://localhost:3000/login";
+                    window.location = "http://localhost:3000/api/login";
                 } else {
                     alert(data);
                 }
