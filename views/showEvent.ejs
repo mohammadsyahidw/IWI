@@ -7,6 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     <script src="../javascripts/client1.js"></script>
 </head>
 <body ng-app="myApp" ng-controller="MainCtrl">
@@ -105,6 +106,7 @@
                 <span class="sr-only">Next</span>
             </a>
         </div>
+
     <label>Description:</label>
         <br/>
     <textarea rows="5" class="form-control"><%-data[0].description%></textarea>
@@ -128,8 +130,9 @@
     </table>
         <form class="form-inline right pull-right">
             <div class="form-group">
-                <button type="submit" class="btn btn-default" onclick="login()">Back</button>
-                <button type="submit" class="btn btn-default" ng-click="join(<%-session.user_number%>, <%-data[0].eventid%>)">Join</button>
+
+                <button type="submit" class="btn btn-warning" onclick="login()">Back</button>
+                <button type="submit" class="btn btn-success" ng-click="join(<%-session.user_number%>, <%-data[0].eventid%>)">Join</button>
 
             </div>
             </form>
