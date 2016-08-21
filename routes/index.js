@@ -29,6 +29,21 @@ router.all('/api/getdata', function (req, res, next) {
     });
   });
 });
+
+router.all('/api/getdatatrip', function (req, res, next) {
+  pool.getConnection(function (err, connection  ) {
+    // var sqlForSelectList = "select * from eventlist";
+    var sqlForSelectList = "select username, destination, Count(follower) as totalFollower, DATE_FORMAT(date, '%d-%m-%Y') as dateValue from eventlist, followerlist, userlist where eventlist.eventid=followerlist.eventid AND follower = id GROUP BY followerlist.eventid";
+
+    connection.query(sqlForSelectList, function (err, rows) {
+      if (err) console.error("err : "+err);
+      console.log("rows : "+JSON.stringify(rows));
+      res.json(rows);
+      console.log(rows);
+      connection.release();
+    });
+  });
+});
 /*
 router.post('/login', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
@@ -96,7 +111,7 @@ router.post('/api/checklogin', function(req, res, next){
       });
     }
     else {
-      res.send('Failed');
+      res.render('loginFailed');
     };
 
     connection.release();
@@ -140,8 +155,11 @@ router.all('/addTrip',function (req,res,next) {
   res.render('addEvent',{session: req.session});
 
 });
+router.all('/myTrips',function (req,res,next) {
+  res.render('myTrips',{session: req.session});
 
-router.all('/mytrip', function (req, res, next) {
+});
+router.all('/api/myTrip', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
     // var sqlForSelectList = "select * from eventlist";
     var sqlForSelectList = "select * from followerlist inner join eventlist on followerlist.eventid=eventlist.eventid where eventlist.eventid='"+req.body.eventid+"'";
@@ -150,6 +168,7 @@ router.all('/mytrip', function (req, res, next) {
       console.log("rows : "+JSON.stringify(rows));
       res.json(rows);
       console.log(rows);
+
       connection.release();
     });
   });

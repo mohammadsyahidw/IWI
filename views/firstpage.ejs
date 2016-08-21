@@ -17,11 +17,17 @@
 
     <!--hide before login, -->
     <div class="pull-left">
-        <button class="btn btn-default " ng-click="signup()">Signup </button>
+
         <label><% if (session.logined) { %> Welcome
             <%-session.user_id%>
             <% }
+            else{
+
             %>
+            <button class="btn btn-default " ng-click="signup()">Signup </button>
+            <%
+
+            }%>
         </label>
             </div>
 
@@ -44,7 +50,7 @@
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownAccount">
-            <li > <a href="#">My Trip</a></li>
+            <li > <a ng-click="myTrip()"href="#">My Trip</a></li>
             <li > <a ng-click="addTrip()" href="#">Add Trip</a></li>
             <li ><a href="http://localhost:3000/logout">Logout</a></li>
         </ul>

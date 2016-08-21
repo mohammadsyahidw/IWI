@@ -1,6 +1,7 @@
 /**
- * Created by Iffah Nisrina on 8/17/2016.
+ * Created by ajou on 21/08/2016.
  */
+
 var module = angular.module('myApp', []);
 module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
     //askasjkasn
@@ -8,11 +9,13 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.user.username='';
     $http({
         method : 'POST',
-        url: 'http://localhost:3000/api'
+        url: 'http://localhost:3000/api/myTrip'
     })
         .success(function (data, status, headers, config) {
+
             if (data){
                 $scope.members=data;
+                // console.log(data.message);
             } else {
             }
         })
@@ -33,40 +36,18 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
                 console.log(status);
             });
     };
-    $scope.myTrip = function () {
+    $scope.addTrip = function () {
         $http({
             method : 'GET',
-            url: 'http://localhost:3000/myTrips'
+            url: 'http://localhost:3000/addTrip'
         })
             .success(function (data, status, headers, config) {
 
-                window.location = "http://localhost:3000/myTrips";
+                window.location = "http://localhost:3000/addTrip";
             })
             .error(function (data, status, headers, config) {
                 console.log(status);
             });
     };
 
-    $scope.submit = function () {
-        $http({
-            method : 'POST',
-            url: 'http://localhost:3000/submit',
-            data: {
-                creatorid : $scope.creatorid,
-                destination : $scope.destination,
-                description : $scope.description,
-                date : $scope.date
-            }
-        })
-            .success(function (data, status, headers, config) {
-                if (data){
-                    alert("Event added!");
-                } else {
-                    alert("Adding event failed!")
-                }
-            })
-            .error(function (data, status, headers, config) {
-                console.log(status);
-            });
-    }
 }]);

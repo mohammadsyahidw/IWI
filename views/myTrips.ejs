@@ -7,14 +7,24 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="myTrips.js"></script>
+    <script src="javascripts/myTrips.js"></script>
 
 </head>
 <body ng-app="myApp" ng-controller="MainCtrl">
 <div class="pull-left">
     <label >Welcome, {{Username}} !  </label>
-    <button class="btn btn-default ">  <a href="addEvent.ejs"> Add Trip</a> </button>
-    <button class="btn btn-default ">  <a href="#"> My Trip</a> </button>
+    <div class="dropdown pull-right">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownAccount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <%-session.user_id%>
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownAccount">
+            <li > <a ng-click="login()"href="#">Home</a></li>
+            <li > <a ng-click="addTrip()" href="#">Add Trip</a></li>
+            <li ><a href="http://localhost:3000/logout">Logout</a></li>
+        </ul>
+    </div>
+
 </div>
 
 <div class="jumbotron text-center ">
