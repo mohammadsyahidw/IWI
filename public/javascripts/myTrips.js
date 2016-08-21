@@ -18,34 +18,48 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
             .error(function (data, status, headers, config) {
                 console.log(status);
             });
-        $scope.show = function (idtrip) {
+        $scope.show = function (idtrip)     {
             window.location = "http://localhost:3000/show/"+idtrip;
-            $scope.addTrip = function () {
-                $http({
-                    method : 'GET',
-                    url: 'http://localhost:3000/addTrip'
-                })
-                    .success(function (data, status, headers, config) {
 
-                        window.location = "http://localhost:3000/addTrip";
-                    })
-                    .error(function (data, status, headers, config) {
-                        console.log(status);
-                    });
-            };
-            $scope.myTrip = function () {
-                $http({
-                    method : 'GET',
-                    url: 'http://localhost:3000/api/myTrip'
-                })
-                    .success(function (data, status, headers, config) {
-                        alert(data);
-                        window.location = "http://localhost:3000/myTrips";
-                    })
-                    .error(function (data, status, headers, config) {
-                        console.log(status);
-                    });
-            };
-    }
+        }
+    $scope.addTrip = function () {
+        $http({
+            method : 'GET',
+            url: 'http://localhost:3000/addTrip'
+        })
+            .success(function (data, status, headers, config) {
+
+                window.location = "http://localhost:3000/addTrip";
+            })
+            .error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    };
+    $scope.myTrip = function () {
+        $http({
+            method : 'GET',
+            url: 'http://localhost:3000/api/myTrip'
+        })
+            .success(function (data, status, headers, config) {
+                alert(data);
+                window.location = "http://localhost:3000/myTrips";
+            })
+            .error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    };
+    $scope.addTrip = function () {
+        $http({
+            method : 'GET',
+            url: 'http://localhost:3000/addTrip'
+        })
+            .success(function (data, status, headers, config) {
+
+                window.location = "http://localhost:3000/addTrip";
+            })
+            .error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    };
 
 }]);
