@@ -123,7 +123,7 @@ router.post('/api/checklogin', function(req, res, next){
 
 router.all('/api/signup', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
-    var sqlForSelectList = "INSERT INTO userlist (username, password) VALUES ('"+req.body.newname+"', '"+req.body.newpassword1+"')";
+    var sqlForSelectList = "INSERT INTO userlist (username, password, email, phonenumber) VALUES ('"+req.body.newname+"', '"+req.body.newpassword1+"', '"+req.body.newemail+"', '"+req.body.newphonenumber+ "')";
     // var sqlForSelectList = "INSERT INTO eventlist (destination, description, date) VALUES ('Dongdaemun', 'Belanja Ceria', '2016-09-01');";
     connection.query(sqlForSelectList, function (err, rows) {
       if (err) console.error("err : "+err);
@@ -136,7 +136,10 @@ router.all('/api/signup', function (req, res, next) {
 router.all('/signup',function (req,res,next) {
       res.render('sign_up');
     });
+router.all('/addTrip',function (req,res,next) {
+  res.render('addEvent',{session: req.session});
 
+});
 
 router.all('/mytrip', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {

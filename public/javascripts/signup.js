@@ -6,8 +6,8 @@ var module = angular.module('myApp', []);
 module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
 
     $scope.signup = function () {
-        if ($scope.nname == null || $scope.npassword1==null || $scope.npassword2 == null || $scope.email==null) {
-            alert("Blank form must be filled!");
+        if ($scope.nname == null || $scope.npassword1==null || $scope.npassword2 == null || $scope.nemail==null) {
+            alert("Fill form correctly!");
         } else {
             if ($scope.npassword1 == $scope.npassword2) {
                 $http({
@@ -15,7 +15,9 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
                     url: 'http://localhost:3000/api/signup',
                     data: {
                         newname: $scope.nname,
-                        newpassword1: $scope.npassword1
+                        newpassword1: $scope.npassword1,
+                        newemail:$scope.nemail,
+                        newphonenumber:$scope.phonenumber
                     }
                 })
                     .success(function (data, status, headers, config) {
@@ -26,7 +28,9 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
                                 url: 'http://localhost:3000/api/checklogin',
                                 data: {
                                     name : $scope.nname,
-                                    password : $scope.npassword1
+                                    password : $scope.npassword1,
+                                    email : $scope.nemail,
+                                    phonenumber : $scope.nphone
                                 }
                             })
                                 .success(function (data, status, headers, config) {
