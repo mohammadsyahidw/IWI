@@ -134,7 +134,46 @@ router.post('/signup', function (req, res, next) {
   });
 });
 
-router.all('/logout', function(req,res,next){
+
+router.all('/mytrip', function (req, res, next) {
+  pool.getConnection(function (err, connection  ) {
+    // var sqlForSelectList = "select * from eventlist";
+    var sqlForSelectList = "select * from followerlist inner join eventlist on followerlist.eventid=eventlist.eventid where eventlist.eventid='"+req.body.eventid+"'";
+    connection.query(sqlForSelectList, function (err, rows) {
+      if (err) console.error("err : "+err);
+      console.log("rows : "+JSON.stringify(rows));
+      res.json(rows);
+      console.log(rows);
+      connection.release();
+    });
+  });
+});
+router.post('/join', function (req, res, next) {
+  pool.getConnection(function (err, connection  ) {
+    var sqlForSelectList = "INSERT INTO followerlist (eventid, follower) VALUES ('"+req.body.eventid1+"', '"+req.body.follower1+"')";
+    // var sqlForSelectList = "INSERT INTO eventlist (destination, description, date) VALUES ('Dongdaemun', 'Belanja Ceria', '2016-09-01');";
+    connection.query(sqlForSelectList, function (err, rows) {
+      if (err) console.error("err : "+err);
+      console.log("rows : "+JSON.stringify(rows));
+      res.json(rows);
+      connection.release();
+    });
+  });
+});
+
+router.post('/search', function (req, res, next) {
+  pool.getConnection(function (err, connection  ) {
+    var sqlForSelectList = "SELECT count(*) as result FROM followerlist where eventid ='"+req.body.eventid+"' and follower ='"+req.body.follower+"'";
+    connection.query(sqlForSelectList, function (err, rows) {
+      if (err) console.error("err : "+err);
+      console.log("rows : "+JSON.stringify(rows));
+      res.json(rows);
+      connection.release();
+    });
+  });
+});
+
+router.post('/logout', function(req,res,next){
   req.session.destroy();
   res.redirect('/login')
 })
