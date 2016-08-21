@@ -210,6 +210,7 @@ router.all('/show', function (req, res, next) {
   });
 });
 
+<<<<<<< HEAD
 router.all('/shownone', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
     // var sqlForSelectList = "select * from eventlist";
@@ -238,7 +239,7 @@ router.all('/showcreator', function (req, res, next) {
   });
 });
 
-router.post('/logout', function(req,res,next){
+router.all('/logout', function(req,res,next){
   req.session.destroy();
   res.redirect('/login')
 });
