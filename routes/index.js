@@ -18,7 +18,7 @@ router.all('/', function(req, res, next) {
 router.all('/api/getdata', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
    // var sqlForSelectList = "select * from eventlist";
-    var sqlForSelectList = "select username, destination, Count(follower) as totalFollower, DATE_FORMAT(date, '%d-%m-%Y') as dateValue from eventlist, followerlist, userlist where eventlist.eventid=followerlist.eventid AND follower = id GROUP BY followerlist.eventid";
+    var sqlForSelectList = "select eventlist.eventid, username, destination, Count(follower) as totalFollower, DATE_FORMAT(date, '%d-%m-%Y') as dateValue from eventlist, followerlist, userlist where eventlist.eventid=followerlist.eventid AND follower = id GROUP BY followerlist.eventid";
 
     connection.query(sqlForSelectList, function (err, rows) {
       if (err) console.error("err : "+err);
@@ -218,7 +218,7 @@ router.all('/detailTrip', function (req, res, next) {
 
 });
 
-router.all('/show', function (req, res, next) {
+router.all('/show/:eventid', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
     // var sqlForSelectList = "select * from eventlist";
     var sqlForSelectList = "select * from followerlist inner join eventlist on followerlist.eventid=eventlist.eventid inner join userlist on followerlist.follower=userlist.id where eventlist.eventid='"+req.body.shevent+"'";
