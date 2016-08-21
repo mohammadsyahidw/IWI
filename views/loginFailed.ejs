@@ -7,9 +7,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.js"></script>
-
+    <script src="javascripts/failedLogin.js"></script>
 </head>
-<body>
+<body ng-app="myApp" ng-controller="MainCtrl">
+
 <div class="jumbotron text-left ">
     <h1> Tripster</h1>
     <p> our travel partner</p>
@@ -26,10 +27,10 @@
                 $('[data-toggle="popover"]').popover();
             });
         </script>
-        <input type="text" class="form-control" id="usr">
+        <input type="text" ng-model="namelogin" class="form-control" id="usr">
         <label for="pwd">Password:</label>
-        <input type="password" class="form-control" id="pwd" data-toggle="popover" data-content="wrong password entered">
-        <button type="submit" class=" form-control btn btn-default">submit</button>
+        <input type="password" ng-model="passlogin" class="form-control" id="pwd" data-toggle="popover" data-content="wrong password entered">
+        <button type="submit" class=" form-control btn btn-default" ng-click="login()">submit</button>
     </div>
 </form>
     </div>

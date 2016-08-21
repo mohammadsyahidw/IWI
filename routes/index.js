@@ -111,7 +111,7 @@ router.post('/api/checklogin', function(req, res, next){
       });
     }
     else {
-      res.render('loginFailed');
+      res.send('Failed');
     };
 
     connection.release();
@@ -157,6 +157,10 @@ router.all('/addTrip',function (req,res,next) {
 });
 router.all('/myTrips',function (req,res,next) {
   res.render('myTrips',{session: req.session});
+
+});
+router.all('/loginFailed',function (req,res,next) {
+  res.render('loginFailed');
 
 });
 router.all('/api/myTrip', function (req, res, next) {
