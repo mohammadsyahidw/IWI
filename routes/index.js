@@ -15,7 +15,7 @@ router.all('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 */
-router.all('/', function (req, res, next) {
+router.all('/api/getdata', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
    // var sqlForSelectList = "select * from eventlist";
     var sqlForSelectList = "select username, destination, Count(follower) as totalFollower, DATE_FORMAT(date, '%d-%m-%Y') as dateValue from eventlist, followerlist, userlist where eventlist.eventid=followerlist.eventid AND follower = id GROUP BY followerlist.eventid";
@@ -55,7 +55,7 @@ router.post('/login', function (req, res, next) {
   });
 });
 */
-router.post('/submit', function (req, res, next) {
+router.post('/api/submit', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
     var sqlForSelectList = "INSERT INTO eventlist (creatorid, destination, description, date) VALUES ('"+req.body.creatorid+"', '"+req.body.destination+"', '"+req.body.description+"', '"+req.body.date+"')";
    // var sqlForSelectList = "INSERT INTO eventlist (destination, description, date) VALUES ('Dongdaemun', 'Belanja Ceria', '2016-09-01');";
@@ -68,7 +68,7 @@ router.post('/submit', function (req, res, next) {
   });
 });
 
-router.get('/login', function(req, res, next){
+router.all('/api/login', function(req, res, next){
   //req.session.logined = false;
   if(req.session.logined){
  //   res.render('logout', {session: req.session});
@@ -76,12 +76,12 @@ router.get('/login', function(req, res, next){
   }
   else {
  //   res.render('login', {session: req.session});
-   res.render('firstpage', {session: req.session});
+   res.render('firstpage', {sOOession: req.session});
   }
 
 });
 
-router.post('/login1', function(req, res, next){
+router.post('/api/checklogin', function(req, res, next){
   var sqlForSelectList = "SELECT count(*) as result FROM userlist where username ='"+req.body.name+"' and password ='"+req.body.password+"'";
   pool.getConnection(function (err, connection  ) {
   connection.query(sqlForSelectList, function (err, rows) {
@@ -121,7 +121,7 @@ router.post('/login1', function(req, res, next){
   */
 });
 
-router.post('/signup', function (req, res, next) {
+router.all('/api/signup', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
     var sqlForSelectList = "INSERT INTO userlist (username, password) VALUES ('"+req.body.newname+"', '"+req.body.newpassword1+"')";
     // var sqlForSelectList = "INSERT INTO eventlist (destination, description, date) VALUES ('Dongdaemun', 'Belanja Ceria', '2016-09-01');";
@@ -129,10 +129,14 @@ router.post('/signup', function (req, res, next) {
       if (err) console.error("err : "+err);
       console.log("rows : "+JSON.stringify(rows));
       res.json(rows);
-      connection.release();
+       connection.release();
     });
   });
 });
+router.all('/signup',function (req,res,next) {
+      res.render('sign_up');
+    }
+)
 
 
 router.all('/mytrip', function (req, res, next) {
@@ -194,6 +198,6 @@ router.all('/show', function (req, res, next) {
 router.post('/logout', function(req,res,next){
   req.session.destroy();
   res.redirect('/login')
-})
+});
 
 module.exports = router;
