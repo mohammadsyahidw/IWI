@@ -18,7 +18,7 @@ router.all('/', function(req, res, next) {
 router.all('/api/getdata', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
    // var sqlForSelectList = "select * from eventlist";
-    var sqlForSelectList = "select eventlist.eventid, username, destination, Count(follower) as totalFollower, DATE_FORMAT(date, '%d-%m-%Y') as dateValue from eventlist, followerlist, userlist where eventlist.eventid=followerlist.eventid AND follower = id GROUP BY followerlist.eventid";
+    var sqlForSelectList = "select eventlist.eventid, userlist.username, destination, Count(follower) as totalFollower, DATE_FORMAT(date, '%d-%m-%Y') as datevalue FROM eventlist, followerlist, userlist WHERE eventlist.eventid = followerlist.eventid AND creatorid = id GROUP BY followerlist.eventid";
 
     connection.query(sqlForSelectList, function (err, rows) {
       if (err) console.error("err : "+err);
@@ -223,16 +223,35 @@ router.all('/detailTrip', function (req, res, next) {
 });
 
 router.all('/show/:eventid', function (req, res, next) {
+  console.log(req.params.eventid);
   pool.getConnection(function (err, connection  ) {
     // var sqlForSelectList = "select * from eventlist";
-    var sqlForSelectList = "select * from followerlist inner join eventlist on followerlist.eventid=eventlist.eventid inner join userlist on followerlist.follower=userlist.id where eventlist.eventid='"+req.body.shevent+"'";
+    var sqlForSelectList = "select * from followerlist inner join eventlist on followerlist.eventid=eventlist.eventid inner join userlist on followerlist.follower=userlist.id where eventlist.eventid='"+req.params.eventid+"'";
+    var a = {};
+    var data = {};
+    var b = {};
     connection.query(sqlForSelectList, function (err, rows) {
       if (err) console.error("err : "+err);
-      console.log("rows : "+JSON.stringify(rows));
-      res.json(rows);
-      console.log(rows);
-      connection.release();
+    //  console.log("rows : "+JSON.stringify(rows));
+     // res.json(rows);
+      a = rows;
+      console.log("yayaya1 " +JSON.stringify(rows));
+      var sqlForSelectList = "select * from eventlist inner join followerlist on followerlist.eventid=eventlist.eventid inner join userlist on eventlist.creatorid=userlist.id where eventlist.eventid='"+req.params.eventid+"'";
+      connection.query(sqlForSelectList, function (err, rows) {
+        if (err) console.error("err : "+err);
+        //  console.log("rows : "+JSON.stringify(rows));
+        //res.json(rows);
+        console.log("yayaya2 " +JSON.stringify(rows));
+        data.sumber2 = rows;
+        connection.release();
+        b = rows;
+        console.log("ini" + JSON.stringify(a));
+        res.render('showEvent', {data: a, data2 : b});
+      });
     });
+
+
+;
   });
 });
 

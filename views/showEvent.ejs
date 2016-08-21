@@ -12,7 +12,7 @@
     <label >Welcome, !  </label>
     <div class="dropdown pull-right">
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownAccount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-            <%-session.user_id%>
+
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownAccount">
@@ -24,7 +24,7 @@
     <p> our travel partner</p>
 </div>
     <div class="container">
-    <h3 class="text-center">Event Name comes here</h3>
+    <h3 class="text-center"><%-data[0].destination%></h3>
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
@@ -37,19 +37,19 @@
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
-                    <img src="images/1.jpg" alt="Chania">
+                    <img src="../images/1.jpg" alt="Chania">
                 </div>
 
                 <div class="item">
-                    <img src="images/2.jpg" alt="Chania">
+                    <img src="../images/2.jpg" alt="Chania">
                 </div>
 
                 <div class="item">
-                    <img src="images/3.jpg" alt="Flower">
+                    <img src="../images/3.jpg" alt="Flower">
                 </div>
 
                 <div class="item">
-                    <img src="images/4.jpg" alt="Flower">
+                    <img src="../images/4.jpg" alt="Flower">
                 </div>
             </div>
 
@@ -65,17 +65,19 @@
         </div>
     <label>Description:</label>
         <br/>
-    <textarea rows="5" class="form-control">Description Comes Here</textarea>
+    <textarea rows="5" class="form-control"><%-data[0].description%></textarea>
     <table class="text-center center">
         <thead>
         <tr><td>Members: </td> </tr>
         </thead>
         <tbody>
-        <td>owner ,</td>
-        <td>member 1,</td>
-        <td>member 2,</td>
-        <td>member 3,</td>
-        <td>member 4,</td>
+        <td><%-data2[0].username%> ,</td>
+        <%var a = data.length%>
+        <%for(var i = 0; i<a; i++)
+        {%>
+            <td><%-data[i].username%> ,</td>
+        <%}
+        %>
         </tbody>
     </table>
         <form class="form-inline right pull-right">

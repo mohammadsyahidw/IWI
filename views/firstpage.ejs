@@ -108,9 +108,9 @@
         <tr ng-repeat="member in members" style="cursor:pointer" >
 
             <td ng-click="show(member.eventid)">{{member.username}}</td>
-            <td onclick="document.location = 'http://google.com'">{{member.destination}}</td>
-            <td onclick="document.location = 'http://google.com'">{{member.dateValue}}</td>
-            <td onclick="document.location = 'http://google.com'">{{member.totalFollower}}</td>
+            <td ng-click="show(member.eventid)">{{member.destination}}</td>
+            <td ng-click="show(member.eventid)">{{member.datevalue}}</td>
+            <td ng-click="show(member.eventid)">{{member.totalFollower}}</td>
 
         </tr>
         </tbody>

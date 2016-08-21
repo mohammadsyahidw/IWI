@@ -107,75 +107,7 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
 
     $scope.show = function (idtrip) {
         alert("hahahhaa");
-        $http({
-            method : 'POST',
-            url: 'http://localhost:3000/followerlist',
-            data:{
-                shevent: $scope.shevent
-            }
-        })
-            .success(function (data, status, headers, config) {
-                if (data[0].frslt==0){
-                    alert("No one join!");
-                    $scope.creators=[];
-                    $http({
-                        method: 'POST',
-                        url: 'http://localhost:3000/shownone',
-                        data: {
-                            shevent: $scope.shevent
-                        }
-                    })
-                        .success(function (data, status, headers, config) {
-                            if (data) {
-                                $scope.members = data;
-                            } else {
-                            }
-                        })
-                        .error(function (data, status, headers, config) {
-                            console.log(status);
-                        });
-                } else {
-                    $http({
-                        method: 'POST',
-                        url: 'http://localhost:3000/show/idtrip',
-                        data: {
-                            shevent: $scope.shevent,
-                            eventid : '@eventid'
-                        }
-                    })
-                        .success(function (data, status, headers, config) {
-                            if (data) {
-                                $scope.members = data;
-
-                            } else {
-                            }
-                        })
-                        .error(function (data, status, headers, config) {
-                            console.log(status);
-                        });
-
-                    $http({
-                        method: 'POST',
-                        url: 'http://localhost:3000/showcreator',
-                        data: {
-                            shevent: $scope.shevent
-                        }
-                    })
-                        .success(function (data, status, headers, config) {
-                            if (data) {
-                                $scope.creators = data;
-                            } else {
-                            }
-                        })
-                        .error(function (data, status, headers, config) {
-                            console.log(status);
-                        });
-                }
-
-            })
-            .error(function (data, status, headers, config) {
-                console.log(status);
-            });
+        window.location = "http://localhost:3000/show/"+idtrip;
     }
 
 }]);
