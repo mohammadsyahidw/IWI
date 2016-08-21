@@ -10,11 +10,11 @@ var pool = mysql.createPool({
 });
 
 /* GET home page. */
-/*
+
 router.all('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('firstpage', {session: req.session});
 });
-*/
+
 router.all('/api/getdata', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
    // var sqlForSelectList = "select * from eventlist";
@@ -76,7 +76,7 @@ router.all('/login', function(req, res, next){
   }
   else {
  //   res.render('login', {session: req.session});
-   res.render('firstpage', {session: req.session});
+
   }
 
 });
