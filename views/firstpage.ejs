@@ -99,11 +99,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="member in members" style="cursor:pointer" onclick="document.location = 'http://localhost:3000/detailTrip'">
-            <td>{{member.username}}</td>
-            <td>{{member.destination}}</td>
-            <td>{{member.dateValue}}</td>
-            <td>{{member.totalFollower}}</td>
+        <tr ng-repeat="member in members" style="cursor:pointer" >
+
+            <td ng-href="http://localhost:3000/{{member.username}}}">{{member.username}}</td>
+            <td onclick="document.location = 'http://google.com'">{{member.destination}}</td>
+            <td onclick="document.location = 'http://google.com'">{{member.dateValue}}</td>
+            <td onclick="document.location = 'http://google.com'">{{member.totalFollower}}</td>
+
         </tr>
         </tbody>
     </table>

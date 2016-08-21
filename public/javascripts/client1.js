@@ -58,6 +58,7 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
                     window.location = "http://localhost:3000/login";
                 } else {
                     alert(data);
+                    window.location = "http://localhost:3000/loginFailed";
                 }
             })
             .error(function (data, status, headers, config) {
