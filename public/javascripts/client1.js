@@ -89,7 +89,6 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
     }
 
     $scope.join = function (user, idtrip) {
-        alert(idtrip);
         $http({
             method : 'POST',
             url: 'http://localhost:3000/search',
