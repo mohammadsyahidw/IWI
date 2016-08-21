@@ -196,7 +196,7 @@ router.all('/detailTrip', function (req, res, next) {
 
 });
 
-router.all('/show', function (req, res, next) {
+router.all('/show/:eventid', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
     // var sqlForSelectList = "select * from eventlist";
     var sqlForSelectList = "select * from followerlist inner join eventlist on followerlist.eventid=eventlist.eventid inner join userlist on followerlist.follower=userlist.id where eventlist.eventid='"+req.body.shevent+"'";
