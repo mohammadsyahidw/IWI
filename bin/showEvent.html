@@ -4,12 +4,17 @@
     <meta charset="UTF-8">
     <title>Show</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="showevent.js"></script>
 </head>
-<body>
+<body ng-app="myApp" ng-controller="MainCtrl">
+    <input type="text" ng-model="shevent">
+    <input type="text" ng-model="userid">
+    <button ng-click="show()">Show</button>
     <div class="container">
-    <h3 class="text-center">Event Name comes here</h3>
+    <h3 class="text-center">{{members[0].destination}}</h3>
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
             <ol class="carousel-indicators">
@@ -50,24 +55,25 @@
         </div>
     <label>Description:</label>
         <br/>
-    <textarea rows="5" class="form-control">Description Comes Here</textarea>
+    <textarea rows="5" class="form-control">{{members[0].description}}</textarea>
     <table class="text-center center">
         <thead>
         <tr><td>Members: </td> </tr>
         </thead>
         <tbody>
         <td>owner ,</td>
-        <td>member 1,</td>
-        <td>member 2,</td>
-        <td>member 3,</td>
-        <td>member 4,</td>
+        <tr ng-repeat="member in members">
+            <td>{{member.username}}</td>
+        </tr>
         </tbody>
     </table>
         <form class="form-inline right pull-right">
             <div class="form-group">
                 <button type="submit" class="btn btn-default">Back</button>
-                <button type="submit" class="btn btn-default">Join</button>
+                <button type="submit" class="btn btn-default" ng-click="join()">Join</button>
 
             </div>
+        </form>
+        </div>
 </body>
 </html>
