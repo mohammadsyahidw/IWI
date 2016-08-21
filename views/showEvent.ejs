@@ -6,8 +6,23 @@
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="javascripts/showEvents.js"></script>
 </head>
-<body>
+<body><div class="pull-left">
+    <label >Welcome, !  </label>
+    <div class="dropdown pull-right">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownAccount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <%-session.user_id%>
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownAccount">
+           <li ><a href="http://localhost:3000/logout">Logout</a></li>
+        </ul>
+    </div></div>
+<div class="jumbotron text-left ">
+    <h1> Tripster</h1>
+    <p> our travel partner</p>
+</div>
     <div class="container">
     <h3 class="text-center">Event Name comes here</h3>
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -22,19 +37,19 @@
             <!-- Wrapper for slides -->
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
-                    <img src="images/gwanggyosan.PNG" alt="Chania">
+                    <img src="images/1.jpg" alt="Chania">
                 </div>
 
                 <div class="item">
-                    <img src="images/import.png" alt="Chania">
+                    <img src="images/2.jpg" alt="Chania">
                 </div>
 
                 <div class="item">
-                    <img src="images/Old_Castle_PNG_Clipart_Image.png" alt="Flower">
+                    <img src="images/3.jpg" alt="Flower">
                 </div>
 
                 <div class="item">
-                    <img src="images/sardines%20abc.jpg" alt="Flower">
+                    <img src="images/4.jpg" alt="Flower">
                 </div>
             </div>
 
@@ -65,9 +80,11 @@
     </table>
         <form class="form-inline right pull-right">
             <div class="form-group">
-                <button type="submit" class="btn btn-default">Back</button>
-                <button type="submit" class="btn btn-default">Join</button>
+                <button type="submit" class="btn btn-default" onclick="login()">Back</button>
+                <button type="submit" class="btn btn-default" onclick="join()">Join</button>
 
             </div>
+            </form>
+        </div>
 </body>
 </html>

@@ -177,7 +177,7 @@ router.all('/api/myTrip', function (req, res, next) {
     });
   });
 });
-router.post('/join', function (req, res, next) {
+router.post('/api/join', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
     var sqlForSelectList = "INSERT INTO followerlist (eventid, follower) VALUES ('"+req.body.eventid1+"', '"+req.body.follower1+"')";
     // var sqlForSelectList = "INSERT INTO eventlist (destination, description, date) VALUES ('Dongdaemun', 'Belanja Ceria', '2016-09-01');";
