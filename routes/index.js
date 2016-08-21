@@ -73,12 +73,25 @@ router.post('/login', function (req, res, next) {
 router.post('/api/submit', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
     var sqlForSelectList = "INSERT INTO eventlist (creatorid, destination, description, date) VALUES ('"+req.body.creatorid+"', '"+req.body.destination+"', '"+req.body.description+"', '"+req.body.date+"')";
-   // var sqlForSelectList = "INSERT INTO eventlist (destination, description, date) VALUES ('Dongdaemun', 'Belanja Ceria', '2016-09-01');";
     connection.query(sqlForSelectList, function (err, rows) {
       if (err) console.error("err : "+err);
       console.log("rows : "+JSON.stringify(rows));
-      res.json(rows);
-      connection.release();
+      var sqlForSelectList = "SELECT * FROM eventlist where creatorid = '"+req.body.creatorid+"' AND destination = '"+req.body.destination+"' AND description = '"+req.body.description+"' AND date = '"+ req.body.date+"'" ;
+      connection.query(sqlForSelectList, function (err, rows) {
+        if (err) console.error("err : "+err);
+        console.log("rows : "+JSON.stringify(rows));
+        var sqlForSelectList = "INSERT INTO followerlist (eventid, follower) VALUES ('"+rows[0].eventid+"', '"+req.body.creatorid+"')";
+        // var sqlForSelectList = "INSERT INTO eventlist (destination, description, date) VALUES ('Dongdaemun', 'Belanja Ceria', '2016-09-01');";
+        connection.query(sqlForSelectList, function (err, rows) {
+          if (err) console.error("err : "+err);
+          console.log("rows : "+JSON.stringify(rows));
+          res.json(rows);
+          connection.release();
+        });
+      });
+
+     // res.json(rows);
+     // connection.release();
     });
   });
 });
@@ -97,7 +110,7 @@ router.all('/login', function(req, res, next){
 });
 
 router.post('/api/checklogin', function(req, res, next){
-  var sqlForSelectList = "SELECT count(*) as result FROM userlist where username ='"+req.body.name+"' and password ='"+req.body.password+"'";
+  var sqlForSelectList = "SELECT count(*) as result, id FROM userlist where username ='"+req.body.name+"' and password ='"+req.body.password+"'";
   pool.getConnection(function (err, connection  ) {
   connection.query(sqlForSelectList, function (err, rows) {
     if (err) console.error("err : "+err);
@@ -107,6 +120,7 @@ router.post('/api/checklogin', function(req, res, next){
       req.session.regenerate(function(){
         req.session.logined = true;
         req.session.user_id = req.body.name;
+        req.session.user_number = rows[0].id;
         res.send('Success');
       });
     }
@@ -166,7 +180,7 @@ router.all('/loginFailed',function (req,res,next) {
 router.all('/api/myTrip', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
     // var sqlForSelectList = "select * from eventlist";
-    var sqlForSelectList = "select * from followerlist inner join eventlist on followerlist.eventid=eventlist.eventid where eventlist.eventid='"+req.body.eventid+"'";
+    var sqlForSelectList = "select destination, DATE_FORMAT(date, '%d-%m-%Y') as datevalue, Count(follower) as totalFollower , eventlist.eventid from followerlist inner join eventlist on followerlist.eventid=eventlist.eventid where eventlist.creatorid='"+req.session.user_number+"' GROUP BY followerlist.eventid";
     connection.query(sqlForSelectList, function (err, rows) {
       if (err) console.error("err : "+err);
       console.log("rows : "+JSON.stringify(rows));
@@ -246,7 +260,7 @@ router.all('/show/:eventid', function (req, res, next) {
         connection.release();
         b = rows;
         console.log("ini" + JSON.stringify(a));
-        res.render('showEvent', {data: a, data2 : b});
+        res.render('showEvent', {session: req.session, data: a, data2 : b});
       });
     });
 

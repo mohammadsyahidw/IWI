@@ -11,7 +11,8 @@
 </head>
 <body ng-app="myApp" ng-controller="MainCtrl">
 
-<div class="jumbotron text-left ">
+
+<div class="jumbotron text-center ">
     <h1> Tripster</h1>
     <p> our travel partner</p>
 </div>
@@ -29,7 +30,7 @@
         </script>
         <input type="text" ng-model="namelogin" class="form-control" id="usr">
         <label for="pwd">Password:</label>
-        <input type="password" ng-model="passlogin" class="form-control" id="pwd" data-toggle="popover" data-content="wrong password entered">
+        <input type="password" ng-model="passlogin" class="form-control" id="pwd" >
         <button type="submit" class=" form-control btn btn-default" ng-click="login()">submit</button>
     </div>
 </form>

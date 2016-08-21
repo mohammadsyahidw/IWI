@@ -1,27 +1,7 @@
 /**
  * Created by Iffah Nisrina on 8/17/2016.
  */
-/*
- module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
- $scope.user = {};
- $scope.user.username='';
- $http({
- method : 'POST',
- url: 'http://localhost:3000'
- })
- .success(function (data, status, headers, config) {
 
- if (data){
- $scope.members=data;
- alert(data);
- } else {
- }
- })
- .error(function (data, status, headers, config) {
- console.log(status);
- });
- }]);
- */
 var module = angular.module('myApp', []);
 module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.user = {};
@@ -94,10 +74,10 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.myTrip = function () {
         $http({
             method : 'GET',
-            url: 'http://localhost:3000/myTrips'
+            url: 'http://localhost:3000/api/myTrip'
         })
             .success(function (data, status, headers, config) {
-
+                alert(data);
                 window.location = "http://localhost:3000/myTrips";
             })
             .error(function (data, status, headers, config) {
@@ -106,10 +86,47 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
     };
 
     $scope.show = function (idtrip) {
-        alert("hahahhaa");
         window.location = "http://localhost:3000/show/"+idtrip;
     }
 
+    $scope.join = function (user, idtrip) {
+        alert(idtrip);
+        $http({
+            method : 'POST',
+            url: 'http://localhost:3000/search',
+            data: {
+                eventid : parseInt(idtrip),
+                follower : user
+            }
+        })
+            .success(function (data, status, headers, config) {
+                if (data[0].result==0){
+                    $http({
+                        method : 'POST',
+                        url: 'http://localhost:3000/api/join',
+                        data:{
+                            eventid1 :  parseInt(idtrip),
+                            follower1 : user
+                        }
+                    })
+                        .success(function (data, status, headers, config) {
+                            if (data){
+                                alert("Join successfully!");
+                            } else {
+                                alert("Join failed!");
+                            }
+                        })
+                        .error(function (data, status, headers, config) {
+                            console.log(status);
+                        });
+                } else {
+                    alert("You already join!");
+                }
+            })
+            .error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
 }]);
 //
 // module.directive('hideTop', function () {

@@ -4,22 +4,64 @@
     <meta charset="UTF-8">
     <title>Show</title>
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="javascripts/showEvents.js"></script>
+    <script src="../javascripts/client1.js"></script>
 </head>
-<body><div class="pull-left">
-    <label >Welcome, !  </label>
+<body ng-app="myApp" ng-controller="MainCtrl">
+
+<div class="container">
+
+    <!--hide before login, -->
+    <div class="pull-left">
+
+        <label><% if (session.logined) { %> Welcome
+            <%-session.user_id%>
+            <% }
+            else{
+
+            %>
+            <button class="btn btn-default " ng-click="signup()">Signup </button>
+            <%
+
+            }%>
+        </label>
+    </div>
+
+    <% if (!session.logined) { %>
+    <form class="form-inline right pull-right">
+
+        <div class="form-group">
+            <label for="usr">ID: </label>
+            <input type="text" class="form-control" ng-model="namelogin" id="usr">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" ng-model="passlogin" id="pwd">
+            <button type="submit" class="btn btn-default" ng-click="login()">Submit</button>
+        </div>
+    </form>
+    <% }
+    else{ %>
     <div class="dropdown pull-right">
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownAccount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-
+            <%-session.user_id%>
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownAccount">
-           <li ><a href="http://localhost:3000/logout">Logout</a></li>
+            <li > <a ng-click="myTrip()"href="#">My Trip</a></li>
+            <li > <a ng-click="addTrip()" href="#">Add Trip</a></li>
+            <li ><a href="http://localhost:3000/logout">Logout</a></li>
         </ul>
-    </div></div>
-<div class="jumbotron text-left ">
+    </div>
+    <%}
+    %>
+    <!--Hide after login-->
+
+
+
+</div>
+
+<div class="jumbotron text-center ">
     <h1> Tripster</h1>
     <p> our travel partner</p>
 </div>
@@ -68,22 +110,26 @@
     <textarea rows="5" class="form-control"><%-data[0].description%></textarea>
     <table class="text-center center">
         <thead>
-        <tr><td>Members: </td> </tr>
+
         </thead>
         <tbody>
-        <td><%-data2[0].username%> ,</td>
+        <tr><td><label>Creator  : </label></td>
+        <td><label><%-data2[0].username%></label></td>
+        </tr>
+        <tr><td><label>Member : </label></td>
         <%var a = data.length%>
         <%for(var i = 0; i<a; i++)
         {%>
             <td><%-data[i].username%> ,</td>
         <%}
         %>
+        </tr>
         </tbody>
     </table>
         <form class="form-inline right pull-right">
             <div class="form-group">
                 <button type="submit" class="btn btn-default" onclick="login()">Back</button>
-                <button type="submit" class="btn btn-default" onclick="join()">Join</button>
+                <button type="submit" class="btn btn-default" ng-click="join(<%-session.user_number%>, <%-data[0].eventid%>)">Join</button>
 
             </div>
             </form>
