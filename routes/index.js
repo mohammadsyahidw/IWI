@@ -76,7 +76,7 @@ router.all('/login', function(req, res, next){
   }
   else {
  //   res.render('login', {session: req.session});
-
+      res.render('firstpage', {session: req.session});
   }
 
 });
