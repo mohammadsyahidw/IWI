@@ -63,15 +63,23 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
             });
     }
 }]);
-//
-// module.directive('hideTop', function () {
-//     return {
-//         link : function (scope, element) {
-//             scope.$watch("islogin", function () {
-//                 if (scope.islogin) {
-//                     element.addClass('hide');
-//                 }
-//             });
-//         }
-//     };
-// });
+
+function addRowHandlers() {
+    var table = document.getElementById("tableShowTrip");
+    var rows = table.getElementsByTagName("tr");
+    for (i = 0; i < rows.length; i++) {
+        var currentRow = table.rows[i];
+        var createClickHandler =
+            function(row)
+            {
+                return function() {
+                    var cell = row.getElementsByTagName("td")[0];
+                    var id = cell.innerHTML;
+                    alert("id:" + id);
+                };
+            };
+
+        currentRow.onclick = createClickHandler(currentRow);
+    }
+}
+window.onload = addRowHandlers();

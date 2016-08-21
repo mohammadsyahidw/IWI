@@ -1,40 +1,18 @@
 /**
  * Created by Iffah Nisrina on 8/17/2016.
  */
-/*
- module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
- $scope.user = {};
- $scope.user.username='';
- $http({
- method : 'POST',
- url: 'http://localhost:3000'
- })
- .success(function (data, status, headers, config) {
-
- if (data){
- $scope.members=data;
- alert(data);
- } else {
- }
- })
- .error(function (data, status, headers, config) {
- console.log(status);
- });
- }]);
- */
 var module = angular.module('myApp', []);
 module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
+    //askasjkasn
     $scope.user = {};
     $scope.user.username='';
     $http({
         method : 'POST',
-        url: 'http://localhost:3000/api/getdata'
+        url: 'http://localhost:3000/api'
     })
         .success(function (data, status, headers, config) {
-
             if (data){
                 $scope.members=data;
-                // console.log(data.message);
             } else {
             }
         })
@@ -45,35 +23,45 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.login = function () {
         $http({
             method : 'POST',
-            url: 'http://localhost:3000/api/checklogin',
+            url: 'http://localhost:3000/login',
             data: {
                 name : $scope.namelogin,
                 password : $scope.passlogin
             }
         })
             .success(function (data, status, headers, config) {
-                if (data == 'Success'){
+                if (data[0].result==1){
                     $scope.islogin = true;
                     alert("Login Success!");
-                    window.location = "http://localhost:3000/api/login";
                 } else {
-                    alert(data);
+                    alert("Login Failed!")
                 }
             })
             .error(function (data, status, headers, config) {
                 console.log(status);
             });
     };
+
+    $scope.submit = function () {
+        $http({
+            method : 'POST',
+            url: 'http://localhost:3000/submit',
+            data: {
+                creatorid : $scope.creatorid,
+                destination : $scope.destination,
+                description : $scope.description,
+                date : $scope.date
+            }
+        })
+            .success(function (data, status, headers, config) {
+                if (data){
+                    alert("Event added!");
+                } else {
+                    alert("Adding event failed!")
+                }
+            })
+            .error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
 }]);
-//
-// module.directive('hideTop', function () {
-//     return {
-//         link : function (scope, element) {
-//             scope.$watch("islogin", function () {
-//                 if (scope.islogin) {
-//                     element.addClass('hide');
-//                 }
-//             });
-//         }
-//     };
-// });
