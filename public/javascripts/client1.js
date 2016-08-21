@@ -77,7 +77,6 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
             url: 'http://localhost:3000/api/myTrip'
         })
             .success(function (data, status, headers, config) {
-                alert(data);
                 window.location = "http://localhost:3000/myTrips";
             })
             .error(function (data, status, headers, config) {
