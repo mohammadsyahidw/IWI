@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>myTrips</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="myTrips.js"></script>
+
+</head>
+<body ng-app="myApp" ng-controller="MainCtrl">
+<div class="pull-left">
+    <label >Welcome, {{Username}} !  </label>
+    <button class="btn btn-default ">  <a href="addEvent.ejs"> Add Trip</a> </button>
+    <button class="btn btn-default ">  <a href="#"> My Trip</a> </button>
+</div>
+
+<div class="jumbotron text-center ">
+    <h1> Tripster</h1>
+    <p> our travel partner</p>
+</div>
+<div class="container">
+    <h3>My Trips</h3>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+        <tr>
+            <th>Owner</th>
+            <th>Destination</th>
+            <th>Date</th>
+            <th>Members</th>
+        </tr>
+        </thead>
+        <tbody>
+        <input type="text" ng-model="eventid"/><button ng-click="search()">Search</button>
+        <tr ng-repeat="member in members">
+            <td>{{member.creatorid}}</td>  <!--dapet dari session-->
+            <td>{{member.destination}}</td>
+            <td>{{member.date}}</td>
+            <td>{{member.follower}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer class="pull-right">	 <a href="https://www.facebook.com/indrabarunaputra">I.</a><a href="https://www.facebook.com/mohammad.syahidwildan">W.</a><a href="https://www.facebook.com/iffah.k.nisrina">I.</a> &copy; 2016 Ajou University</footer>
+
+</body>
+</html>
