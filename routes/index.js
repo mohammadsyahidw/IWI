@@ -173,10 +173,52 @@ router.post('/search', function (req, res, next) {
   });
 });
 
+router.all('/followerlist', function (req, res, next) {
+  pool.getConnection(function (err, connection  ) {
+    // var sqlForSelectList = "select * from eventlist";
+    var sqlForSelectList = "select count(*) as frslt from followerlist inner join eventlist on followerlist.eventid=eventlist.eventid inner join userlist on followerlist.follower=userlist.id where eventlist.eventid='"+req.body.shevent+"'";
+    connection.query(sqlForSelectList, function (err, rows) {
+      if (err) console.error("err : "+err);
+      console.log("rows : "+JSON.stringify(rows));
+      res.json(rows);
+      console.log(rows);
+      connection.release();
+    });
+  });
+});
+
 router.all('/show', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
     // var sqlForSelectList = "select * from eventlist";
     var sqlForSelectList = "select * from followerlist inner join eventlist on followerlist.eventid=eventlist.eventid inner join userlist on followerlist.follower=userlist.id where eventlist.eventid='"+req.body.shevent+"'";
+    connection.query(sqlForSelectList, function (err, rows) {
+      if (err) console.error("err : "+err);
+      console.log("rows : "+JSON.stringify(rows));
+      res.json(rows);
+      console.log(rows);
+      connection.release();
+    });
+  });
+});
+
+router.all('/shownone', function (req, res, next) {
+  pool.getConnection(function (err, connection  ) {
+    // var sqlForSelectList = "select * from eventlist";
+    var sqlForSelectList = "select * from userlist inner join eventlist on userlist.id=eventlist.creatorid where eventlist.eventid='"+req.body.shevent+"'";
+    connection.query(sqlForSelectList, function (err, rows) {
+      if (err) console.error("err : "+err);
+      console.log("rows : "+JSON.stringify(rows));
+      res.json(rows);
+      console.log(rows);
+      connection.release();
+    });
+  });
+});
+
+router.all('/showcreator', function (req, res, next) {
+  pool.getConnection(function (err, connection  ) {
+    // var sqlForSelectList = "select * from eventlist";
+    var sqlForSelectList = "select * from eventlist inner join followerlist on followerlist.eventid=eventlist.eventid inner join userlist on eventlist.creatorid=userlist.id where eventlist.eventid='"+req.body.shevent+"'";
     connection.query(sqlForSelectList, function (err, rows) {
       if (err) console.error("err : "+err);
       console.log("rows : "+JSON.stringify(rows));
