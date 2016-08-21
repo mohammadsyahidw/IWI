@@ -13,9 +13,17 @@
 <body ng-app="myApp" ng-controller="MainCtrl">
 <div class="pull-left">
     <label >Welcome, !  </label>
-    <button class="btn btn-default ">  <a href="addEvent.ejs"> Add Trip</a> </button>
-    <button class="btn btn-default ">  <a href="#"> My Trip</a> </button>
-</div>
+    <div class="dropdown pull-right">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownAccount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <%-session.user_id%>
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownAccount">
+            <li > <a href="#">My Trip</a></li>
+            <li > <a ng-click="addTrip()" href="#">Add Trip</a></li>
+            <li ><a href="http://localhost:3000/logout">Logout</a></li>
+        </ul>
+    </div></div>
 <div class="jumbotron text-left ">
     <h1> Tripster</h1>
     <p> our travel partner</p>
