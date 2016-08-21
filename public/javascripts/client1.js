@@ -64,6 +64,20 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
                 console.log(status);
             });
     };
+    $scope.signup = function () {
+        $http({
+            method : 'GET',
+            url: 'http://localhost:3000/signup'
+        })
+            .success(function (data, status, headers, config) {
+
+                    window.location = "http://localhost:3000/signup";
+            })
+            .error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    };
+
 }]);
 //
 // module.directive('hideTop', function () {

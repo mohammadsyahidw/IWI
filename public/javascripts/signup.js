@@ -12,7 +12,7 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
             if ($scope.npassword1 == $scope.npassword2) {
                 $http({
                     method: 'POST',
-                    url: 'http://localhost:3000/signup',
+                    url: 'http://localhost:3000/api/signup',
                     data: {
                         newname: $scope.nname,
                         newpassword1: $scope.npassword1
@@ -21,6 +21,25 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
                     .success(function (data, status, headers, config) {
                         if (data) {
                             alert("Sign Up Success!");
+                            $http({
+                                method : 'POST',
+                                url: 'http://localhost:3000/api/checklogin',
+                                data: {
+                                    name : $scope.nname,
+                                    password : $scope.npassword1
+                                }
+                            })
+                                .success(function (data, status, headers, config) {
+                                    if (data == 'Success'){
+                                        $scope.islogin = true;
+                                        window.location = "http://localhost:3000/login";
+                                    } else {
+                                        alert(data);
+                                    }
+                                })
+                                .error(function (data, status, headers, config) {
+                                    console.log(status);
+                                })
                         } else {
                             alert("Sign Up Failed!")
                         }

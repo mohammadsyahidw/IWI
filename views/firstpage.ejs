@@ -17,7 +17,7 @@
 
     <!--hide before login, -->
     <div class="pull-left">
-        <button class="btn btn-default ">  <a href="#">Signup</a> </button>
+        <button class="btn btn-default " ng-click="signup()">Signup </button>
         <label><% if (session.logined) { %> Welcome
             <%-session.user_id%>
             <% }
