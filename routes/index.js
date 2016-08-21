@@ -153,7 +153,6 @@ router.post('/api/checklogin', function(req, res, next){
 router.all('/api/signup', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
     var sqlForSelectList = "INSERT INTO userlist (username, password, email, phonenumber) VALUES ('"+req.body.newname+"', '"+req.body.newpassword1+"', '"+req.body.newemail+"', '"+req.body.newphonenumber+ "')";
-    // var sqlForSelectList = "INSERT INTO eventlist (destination, description, date) VALUES ('Dongdaemun', 'Belanja Ceria', '2016-09-01');";
     connection.query(sqlForSelectList, function (err, rows) {
       if (err) console.error("err : "+err);
       console.log("rows : "+JSON.stringify(rows));
@@ -166,34 +165,63 @@ router.all('/signup',function (req,res,next) {
       res.render('sign_up');
     });
 router.all('/addTrip',function (req,res,next) {
-  res.render('addEvent',{session: req.session});
-
+  if(req.session.logined) {
+    res.render('addEvent', {session: req.session});
+  }
+  else{
+    res.redirect('/loginFailed');
+  }
 });
 router.all('/editTrip',function (req,res,next) {
   res.render('editEvent',{session: req.session});
 
 });
 router.all('/myTrips',function (req,res,next) {
-  res.render('myTrips',{session: req.session});
-
+  if(req.session.logined){
+    res.render('myTrips',{session: req.session});
+  }
+  else {
+    res.redirect('/loginFailed');
+  }
 });
+
+router.all('/deleteTrip/:idTrip',function (req,res,next) {
+  pool.getConnection(function (err, connection  ) {
+    var sqlForSelectList = "DELETE FROM eventlist WHERE eventid = '"+req.params.idTrip+"'";
+    connection.query(sqlForSelectList, function (err, rows) {
+      if (err) console.error("err : "+err);
+      console.log("rows : "+JSON.stringify(rows));
+      var sqlForSelectList = "DELETE FROM followerlist WHERE eventid = '"+req.params.idTrip+"'";
+      connection.query(sqlForSelectList, function (err, rows) {
+        if (err) console.error("err : "+err);
+        console.log("rows : "+JSON.stringify(rows));
+        res.send("Delete Success");
+        connection.release();
+      });
+    });
+  });
+});
+
 router.all('/loginFailed',function (req,res,next) {
   res.render('loginFailed');
 
 });
 router.all('/api/myTrip', function (req, res, next) {
-  pool.getConnection(function (err, connection  ) {
-    // var sqlForSelectList = "select * from eventlist";
-    var sqlForSelectList = "select destination, DATE_FORMAT(date, '%d-%m-%Y') as datevalue, Count(follower) as totalFollower , eventlist.eventid from followerlist inner join eventlist on followerlist.eventid=eventlist.eventid where eventlist.creatorid='"+req.session.user_number+"' GROUP BY followerlist.eventid";
-    connection.query(sqlForSelectList, function (err, rows) {
-      if (err) console.error("err : "+err);
-      console.log("rows : "+JSON.stringify(rows));
-      res.json(rows);
-      console.log(rows);
 
-      connection.release();
+    pool.getConnection(function (err, connection  ) {
+      // var sqlForSelectList = "select * from eventlist";
+      var sqlForSelectList = "select destination, DATE_FORMAT(date, '%d-%m-%Y') as datevalue, Count(follower) as totalFollower , eventlist.eventid from followerlist inner join eventlist on followerlist.eventid=eventlist.eventid where eventlist.creatorid='"+req.session.user_number+"' GROUP BY followerlist.eventid";
+      connection.query(sqlForSelectList, function (err, rows) {
+        if (err) console.error("err : "+err);
+        console.log("rows : "+JSON.stringify(rows));
+        res.json(rows);
+        console.log(rows);
+
+        connection.release();
+      });
     });
-  });
+
+
 });
 router.post('/api/join', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
@@ -252,36 +280,40 @@ router.all('/detailTrip', function (req, res, next) {
 });
 
 router.all('/show/:eventid', function (req, res, next) {
-  console.log(req.params.eventid);
-  pool.getConnection(function (err, connection  ) {
-    // var sqlForSelectList = "select * from eventlist";
-    var sqlForSelectList = "select * from followerlist inner join eventlist on followerlist.eventid=eventlist.eventid inner join userlist on followerlist.follower=userlist.id where eventlist.eventid='"+req.params.eventid+"'";
-    var a = {};
-    var data = {};
-    var b = {};
-    connection.query(sqlForSelectList, function (err, rows) {
-      if (err) console.error("err : "+err);
-    //  console.log("rows : "+JSON.stringify(rows));
-     // res.json(rows);
-      a = rows;
-      console.log("yayaya1 " +JSON.stringify(rows));
-      var sqlForSelectList = "select * from eventlist inner join followerlist on followerlist.eventid=eventlist.eventid inner join userlist on eventlist.creatorid=userlist.id where eventlist.eventid='"+req.params.eventid+"'";
+  if(req.session.logined){
+    pool.getConnection(function (err, connection  ) {
+      // var sqlForSelectList = "select * from eventlist";
+      var sqlForSelectList = "select * from followerlist inner join eventlist on followerlist.eventid=eventlist.eventid inner join userlist on followerlist.follower=userlist.id where eventlist.eventid='"+req.params.eventid+"'";
+      var a = {};
+      var data = {};
+      var b = {};
       connection.query(sqlForSelectList, function (err, rows) {
         if (err) console.error("err : "+err);
         //  console.log("rows : "+JSON.stringify(rows));
-        //res.json(rows);
-        console.log("yayaya2 " +JSON.stringify(rows));
-        data.sumber2 = rows;
-        connection.release();
-        b = rows;
-        console.log("ini" + JSON.stringify(a));
-        res.render('showEvent', {session: req.session, data: a, data2 : b});
+        // res.json(rows);
+        a = rows;
+        console.log("yayaya1 " +JSON.stringify(rows));
+        var sqlForSelectList = "select * from eventlist inner join followerlist on followerlist.eventid=eventlist.eventid inner join userlist on eventlist.creatorid=userlist.id where eventlist.eventid='"+req.params.eventid+"'";
+        connection.query(sqlForSelectList, function (err, rows) {
+          if (err) console.error("err : "+err);
+          //  console.log("rows : "+JSON.stringify(rows));
+          //res.json(rows);
+          console.log("yayaya2 " +JSON.stringify(rows));
+          data.sumber2 = rows;
+          connection.release();
+          b = rows;
+          console.log("ini" + JSON.stringify(a));
+          res.render('showEvent', {session: req.session, data: a, data2 : b});
+        });
       });
+
+
+      ;
     });
-
-
-;
-  });
+  }
+  else {
+    res.redirect('/loginFailed');
+  }
 });
 
 router.all('/shownone', function (req, res, next) {
