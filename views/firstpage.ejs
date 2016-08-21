@@ -101,7 +101,7 @@
         <tbody>
         <tr ng-repeat="member in members" style="cursor:pointer" >
 
-            <td ng-href="http://localhost:3000/:{{members[0].eventid}}">{{member.username}}</td>
+            <td ng-click="show({{member.eventid}})">{{member.username}}</td>
             <td onclick="document.location = 'http://google.com'">{{member.destination}}</td>
             <td onclick="document.location = 'http://google.com'">{{member.dateValue}}</td>
             <td onclick="document.location = 'http://google.com'">{{member.totalFollower}}</td>
