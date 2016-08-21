@@ -55,7 +55,7 @@ router.post('/login', function (req, res, next) {
   });
 });
 */
-router.post('/submit', function (req, res, next) {
+router.post('/api/submit', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
     var sqlForSelectList = "INSERT INTO eventlist (creatorid, destination, description, date) VALUES ('"+req.body.creatorid+"', '"+req.body.destination+"', '"+req.body.description+"', '"+req.body.date+"')";
    // var sqlForSelectList = "INSERT INTO eventlist (destination, description, date) VALUES ('Dongdaemun', 'Belanja Ceria', '2016-09-01');";
@@ -121,7 +121,7 @@ router.post('/api/checklogin', function(req, res, next){
   */
 });
 
-router.post('/signup', function (req, res, next) {
+router.all('/api/signup', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
     var sqlForSelectList = "INSERT INTO userlist (username, password) VALUES ('"+req.body.newname+"', '"+req.body.newpassword1+"')";
     // var sqlForSelectList = "INSERT INTO eventlist (destination, description, date) VALUES ('Dongdaemun', 'Belanja Ceria', '2016-09-01');";
@@ -129,11 +129,14 @@ router.post('/signup', function (req, res, next) {
       if (err) console.error("err : "+err);
       console.log("rows : "+JSON.stringify(rows));
       res.json(rows);
-      res.render('sign_up', {session: req.session});
-      connection.release();
+       connection.release();
     });
   });
 });
+router.all('/signup',function (req,res,next) {
+      res.render('sign_up');
+    }
+)
 
 
 router.all('/mytrip', function (req, res, next) {
