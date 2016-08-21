@@ -216,6 +216,17 @@ router.post('/search', function (req, res, next) {
   });
 });
 
+router.post('/checktrip', function (req, res, next) {
+  pool.getConnection(function (err, connection  ) {
+    var sqlForSelectList = "SELECT count(*) as result FROM eventlist where creatorid ='"+req.session.user_number+"'";
+    connection.query(sqlForSelectList, function (err, rows) {
+      if (err) console.error("err : "+err);
+      console.log("rows : "+JSON.stringify(rows));
+      res.json(rows);
+      connection.release();
+    });
+  });
+});
 
 router.all('/followerlist', function (req, res, next) {
   pool.getConnection(function (err, connection  ) {
