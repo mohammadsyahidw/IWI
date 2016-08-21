@@ -72,28 +72,53 @@ router.get('/login', function(req, res, next){
   //req.session.logined = false;
   if(req.session.logined){
  //   res.render('logout', {session: req.session});
-    res.render('firstpage', {session: req.session});
+   res.render('firstpage', {session: req.session});
   }
   else {
  //   res.render('login', {session: req.session});
-    res.render('firstpage', {session: req.session});
+   res.render('firstpage', {session: req.session});
   }
 
 });
 
 router.post('/login1', function(req, res, next){
-  console.log("yaya");
+  var sqlForSelectList = "SELECT count(*) as result FROM userlist where username ='"+req.body.name+"' and password ='"+req.body.password+"'";
+  pool.getConnection(function (err, connection  ) {
+  connection.query(sqlForSelectList, function (err, rows) {
+    if (err) console.error("err : "+err);
+    console.log("rows : "+JSON.stringify(rows));
+    console.log(rows[0].result);
+    if(rows[0].result==1){
+      req.session.regenerate(function(){
+        req.session.logined = true;
+        req.session.user_id = req.body.name;
+        res.send('Success');
+      });
+    }
+    else {
+      res.send('Failed');
+    };
+
+    connection.release();
+  });
+    });
+  /*
   if(req.body.name == 'wise'  &&  req.body.password =='lab'){
+    console.log(req.body.name);
     req.session.regenerate(function(){
       req.session.logined = true;
-      req.session.user_id = req.body.id;
-      res.render('login', {session: req.session})
+      req.session.user_id = req.body.name;
+   //   console.log("yaya");
+     // res.render('login', {session: req.session});
+   //   console.log("yaya");
+
+      res.send('Success');
     })
   }
   else{
     console.log("wrong password");
   }
-
+  */
 });
 
 router.post('/signup', function (req, res, next) {
@@ -109,7 +134,7 @@ router.post('/signup', function (req, res, next) {
   });
 });
 
-router.post('/logout', function(req,res,next){
+router.all('/logout', function(req,res,next){
   req.session.destroy();
   res.redirect('/login')
 })

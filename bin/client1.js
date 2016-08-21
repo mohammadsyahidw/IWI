@@ -45,7 +45,7 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.login = function () {
         $http({
             method : 'POST',
-            url: 'http://localhost:3000/login',
+            url: 'http://localhost:3000/login1',
             data: {
                 name : $scope.namelogin,
                 password : $scope.passlogin
@@ -54,9 +54,8 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
             .success(function (data, status, headers, config) {
                 if (data == 'Success'){
                     $scope.islogin = true;
-                    alert("Login Success!");
                 } else {
-                    alert(data);
+                  //  alert(data);
                 }
             })
             .error(function (data, status, headers, config) {

@@ -43,7 +43,6 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
         });
 
     $scope.login = function () {
-        alert("ya");
         $http({
             method : 'POST',
             url: 'http://localhost:3000/login1',
@@ -56,6 +55,7 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
                 if (data == 'Success'){
                     $scope.islogin = true;
                     alert("Login Success!");
+                    window.location = "http://localhost:3000/login";
                 } else {
                     alert(data);
                 }
