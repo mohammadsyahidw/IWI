@@ -3,43 +3,14 @@
  */
 var module = angular.module('myApp', []);
 module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
-    //askasjkasn
-    $scope.user = {};
-    $scope.user.username='';
-    $http({
-        method : 'POST',
-        url: 'http://localhost:3000/api'
-    })
-        .success(function (data, status, headers, config) {
-            if (data){
-                $scope.members=data;
-            } else {
-            }
-        })
-        .error(function (data, status, headers, config) {
-            console.log(status);
-        });
 
-    $scope.login = function () {
-        $http({
-            method : 'GET',
-            url: 'http://localhost:3000/'
-        })
-            .success(function (data, status, headers, config) {
-
-                window.location = "http://localhost:3000/";
-            })
-            .error(function (data, status, headers, config) {
-                console.log(status);
-            });
-    };
     $scope.myTrip = function () {
         $http({
             method : 'GET',
-            url: 'http://localhost:3000/myTrips'
+            url: 'http://localhost:3000/api/myTrip'
         })
             .success(function (data, status, headers, config) {
-
+                alert(data);
                 window.location = "http://localhost:3000/myTrips";
             })
             .error(function (data, status, headers, config) {
@@ -47,12 +18,12 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
             });
     };
 
-    $scope.submit = function () {
+    $scope.submit = function (usernumber) {
         $http({
             method : 'POST',
-            url: 'http://localhost:3000/submit',
+            url: 'http://localhost:3000/api/submit',
             data: {
-                creatorid : $scope.creatorid,
+                creatorid : usernumber,
                 destination : $scope.destination,
                 description : $scope.description,
                 date : $scope.date
@@ -61,6 +32,7 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
             .success(function (data, status, headers, config) {
                 if (data){
                     alert("Event added!");
+                    window.location = "http://localhost:3000";
                 } else {
                     alert("Adding event failed!")
                 }

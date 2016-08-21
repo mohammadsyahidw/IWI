@@ -11,27 +11,62 @@
 
 </head>
 <body ng-app="myApp" ng-controller="MainCtrl">
-<div class="pull-left">
-    <label >Welcome, !  </label>
+<div class="container">
+
+    <!--hide before login, -->
+    <div class="pull-left">
+
+        <label><% if (session.logined) { %> Welcome
+            <%-session.user_id%>
+            <% }
+            else{
+
+            %>
+            <button class="btn btn-default " ng-click="signup()">Signup </button>
+            <%
+
+            }%>
+        </label>
+    </div>
+
+    <% if (!session.logined) { %>
+    <form class="form-inline right pull-right">
+
+        <div class="form-group">
+            <label for="usr">ID: </label>
+            <input type="text" class="form-control" ng-model="namelogin" id="usr">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" ng-model="passlogin" id="pwd">
+            <button type="submit" class="btn btn-default" ng-click="login()">Submit</button>
+        </div>
+    </form>
+    <% }
+    else{ %>
     <div class="dropdown pull-right">
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownAccount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             <%-session.user_id%>
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownAccount">
-            <li > <a ng-click="login()"href="#">Home</a></li>
             <li > <a ng-click="myTrip()"href="#">My Trip</a></li>
+            <li > <a ng-click="addTrip()" href="#">Add Trip</a></li>
             <li ><a href="http://localhost:3000/logout">Logout</a></li>
         </ul>
-    </div></div>
-<div class="jumbotron text-left ">
+    </div>
+    <%}
+    %>
+    <!--Hide after login-->
+
+
+
+</div>
+
+<div class="jumbotron text-center ">
     <h1> Tripster</h1>
     <p> our travel partner</p>
 </div>
 
 <div class="container">
-<label for="evt">ID: </label>
-<input type="text" class="form-control" id="id" ng-model="creatorid"/>
 <label for="evt">Event: </label>
 <input required type="text" class="form-control" id="evt" ng-model="destination"/>
 <label for="desc">Description:</label>
@@ -41,7 +76,7 @@
 <label for="pic">Views:</label>
 <input type="file" class="" accept="image/*" multiple="multiple" id="pic"/>
 <br/>
-<button type="submit" ng-click="submit()" class="btn btn-default">submit</button>
+<button type="submit" ng-click="submit(<%-session.user_number%>)" class="btn btn-default">submit</button>
 </div>
 </body>
 </html>

@@ -11,19 +11,55 @@
 
 </head>
 <body ng-app="myApp" ng-controller="MainCtrl">
-<div class="pull-left">
-    <label >Welcome, {{Username}} !  </label>
+
+
+<div class="container">
+
+    <!--hide before login, -->
+    <div class="pull-left">
+
+        <label><% if (session.logined) { %> Welcome
+            <%-session.user_id%>
+            <% }
+            else{
+
+            %>
+            <button class="btn btn-default " ng-click="signup()">Signup </button>
+            <%
+
+            }%>
+        </label>
+    </div>
+
+    <% if (!session.logined) { %>
+    <form class="form-inline right pull-right">
+
+        <div class="form-group">
+            <label for="usr">ID: </label>
+            <input type="text" class="form-control" ng-model="namelogin" id="usr">
+            <label for="pwd">Password:</label>
+            <input type="password" class="form-control" ng-model="passlogin" id="pwd">
+            <button type="submit" class="btn btn-default" ng-click="login()">Submit</button>
+        </div>
+    </form>
+    <% }
+    else{ %>
     <div class="dropdown pull-right">
         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownAccount" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             <%-session.user_id%>
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownAccount">
-            <li > <a ng-click="login()"href="#">Home</a></li>
-            <li > <a ng-click="addTrip()" href="#">Add Trip</a></li>
+            <li > <a ng-click="myTrip()">My Trip</a></li>
+            <li > <a ng-click="addTrip()">Add Trip</a></li>
             <li ><a href="http://localhost:3000/logout">Logout</a></li>
         </ul>
     </div>
+    <%}
+    %>
+    <!--Hide after login-->
+
+
 
 </div>
 
@@ -33,23 +69,22 @@
 </div>
 <div class="container">
     <h3>My Trips</h3>
-    <table class="table table-striped">
+    <table class="table table-stripe table-hover">
         <thead>
         <tr>
         <tr>
-            <th>Owner</th>
             <th>Destination</th>
             <th>Date</th>
             <th>Members</th>
         </tr>
         </thead>
         <tbody>
-        <input type="text" ng-model="eventid"/><button ng-click="search()">Search</button>
-        <tr ng-repeat="member in members">
-            <td>{{member.creatorid}}</td>  <!--dapet dari session-->
-            <td>{{member.destination}}</td>
-            <td>{{member.date}}</td>
-            <td>{{member.follower}}</td>
+        <tr ng-repeat="member in members" style="cursor:pointer" >
+
+            <td ng-click="show(member.eventid)">{{member.destination}}</td>
+            <td ng-click="show(member.eventid)">{{member.datevalue}}</td>
+            <td ng-click="show(member.eventid)">{{member.totalFollower}}</td>
+
         </tr>
         </tbody>
     </table>
