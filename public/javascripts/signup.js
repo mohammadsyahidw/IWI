@@ -17,7 +17,7 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
                         newname: $scope.nname,
                         newpassword1: $scope.npassword1,
                         newemail:$scope.nemail,
-                        newphonenumber:$scope.phonenumber
+                        newphonenumber:$scope.nphone
                     }
                 })
                     .success(function (data, status, headers, config) {

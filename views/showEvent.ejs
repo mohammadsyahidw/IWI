@@ -63,8 +63,10 @@
 </div>
 
 <div class="jumbotron text-center ">
-    <h1> Tripster</h1>
-    <p> our travel partner</p>
+    <a href="http://localhost:3000" style="text-decoration: none; color:inherit">
+        <h1> Tripster</h1>
+        <p> our travel partner</p>
+    </a>
 </div>
     <div class="container">
     <h3 class="text-center"><%-data[0].destination%></h3>
@@ -122,7 +124,7 @@
         <%var a = data.length%>
         <%for(var i = 0; i<a; i++)
         {%>
-            <td><%-data[i].username%>  (<%-data[0].phonenumber%> ),</td>
+            <td><%-data[i].username%>  (<%-data[i].phonenumber%> ),</td>
         <%}
         %>
         </tr>
@@ -131,7 +133,6 @@
         <form class="form-inline right pull-right">
             <div class="form-group">
                 <%if(data2[0].username!=session.user_id){%>
-                <button type="submit" class="btn btn-warning" onclick="login()">Back</button>
                 <button type="submit" class="btn btn-success" ng-click="join(<%-session.user_number%>, <%-data[0].eventid%>)">Join</button>
                 <%}else{%>
                 <button type="submit" class="btn btn-danger" ng-click="deleteTrip(<%-data[0].eventid%>)">Delete</button>

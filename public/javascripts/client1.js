@@ -64,7 +64,6 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
             url: 'http://localhost:3000/addTrip'
         })
             .success(function (data, status, headers, config) {
-
                 window.location = "http://localhost:3000/addTrip";
             })
             .error(function (data, status, headers, config) {
