@@ -116,13 +116,13 @@
         </thead>
         <tbody>
         <tr><td><label>Creator  : </label></td>
-        <td><label><%-data2[0].username%></label></td>
+        <td><label><%-data2[0].username%> (<%-data2[0].phonenumber%>)</label></td>
         </tr>
         <tr><td><label>Member : </label></td>
         <%var a = data.length%>
         <%for(var i = 0; i<a; i++)
         {%>
-            <td><%-data[i].username%> ,</td>
+            <td><%-data[i].username%>  (<%-data[0].phonenumber%> ),</td>
         <%}
         %>
         </tr>
@@ -130,10 +130,12 @@
     </table>
         <form class="form-inline right pull-right">
             <div class="form-group">
-
+                <%if(data2[0].username!=session.user_id){%>
                 <button type="submit" class="btn btn-warning" onclick="login()">Back</button>
                 <button type="submit" class="btn btn-success" ng-click="join(<%-session.user_number%>, <%-data[0].eventid%>)">Join</button>
-
+                <%}else{%>
+                <button type="submit" class="btn btn-danger" ng-click="deleteTrip(<%-data[0].eventid%>)">Delete</button>
+                <%}%>
             </div>
             </form>
         </div>

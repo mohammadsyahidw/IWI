@@ -35,7 +35,7 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
                 if (data == 'Success'){
                     $scope.islogin = true;
                     alert("Login Success!");
-                    window.location = "http://localhost:3000/login";
+                    window.location = "http://localhost:3000/";
                 } else {
                     alert(data);
                     window.location = "http://localhost:3000/loginFailed";
@@ -87,9 +87,24 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
     $scope.show = function (idtrip) {
         window.location = "http://localhost:3000/show/"+idtrip;
     }
+    $scope.editTrip = function () {
+        window.location = "http://localhost:3000/editTrip";
+    }
+    $scope.deleteTrip = function (idtrip) {
+        $http({
+            method : 'GET',
+            url: 'http://localhost:3000/deleteTrip/'+idtrip
+        })
+            .success(function (data, status, headers, config) {
+                alert(data);
+                window.location = "http://localhost:3000";
+            })
+            .error(function (data, status, headers, config) {
+                console.log(status);
+            });
+    }
 
     $scope.join = function (user, idtrip) {
-        alert(idtrip);
         $http({
             method : 'POST',
             url: 'http://localhost:3000/search',
@@ -111,6 +126,7 @@ module.controller('MainCtrl', ['$scope', '$http', function ($scope, $http) {
                         .success(function (data, status, headers, config) {
                             if (data){
                                 alert("Join successfully!");
+                                window.location = "http://localhost:3000/show/"+idtrip;
                             } else {
                                 alert("Join failed!");
                             }
